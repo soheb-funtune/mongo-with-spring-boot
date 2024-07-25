@@ -1,34 +1,38 @@
 package com.example.blogapp.models;
 
-import javax.persistence.*;
+import java.util.List;
+import java.util.ArrayList;
 
-@Entity
-@Table(name = "users")
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Document(collection = "users")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userId;
+    private String _id;
+
     private String username;
+
     private String email;
-    public int getUserId() {
-        return userId;
-    }
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-    public String getUsername() {
-        return username;
-    }
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) {
-        this.email = email;
+
+    @DBRef
+    private List<Post> postsList = new ArrayList<>();
+
+    public String get_Id() {
+        return _id;
     }
 
-   
-    
 }
